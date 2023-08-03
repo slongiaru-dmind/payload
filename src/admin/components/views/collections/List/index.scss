@@ -28,6 +28,11 @@
     }
   }
 
+  &__action-pills {
+    display: flex;
+    gap: base(.5);
+  }
+
   &__sub-header {
     flex-basis: 100%;
     margin-top: base(.25);

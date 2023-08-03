@@ -22,6 +22,7 @@ import DeleteMany from '../../../elements/DeleteMany';
 import PublishMany from '../../../elements/PublishMany';
 import UnpublishMany from '../../../elements/UnpublishMany';
 import formatFilesize from '../../../../../uploads/formatFilesize';
+import { BulkUploads } from './BulkUploads';
 
 import './index.scss';
 
@@ -63,7 +64,9 @@ const DefaultList: React.FC<Props> = (props) => {
   const { t, i18n } = useTranslation('general');
   let formattedDocs = data.docs || [];
 
-  if (collection.upload) {
+  const isUploadCollection = collection?.upload;
+
+  if (isUploadCollection) {
     formattedDocs = formattedDocs?.map((doc) => {
       return {
         ...doc,
@@ -100,10 +103,17 @@ const DefaultList: React.FC<Props> = (props) => {
                   {getTranslation(pluralLabel, i18n)}
                 </h1>
                 {hasCreatePermission && (
-                  <Pill to={newDocumentURL}>
-                    {t('createNew')}
-                  </Pill>
+                  <div className={`${baseClass}__action-pills`}>
+                    <Pill to={newDocumentURL}>
+                      {t('createNew')}
+                    </Pill>
+
+                    {isUploadCollection && (
+                      <BulkUploads />
+                    )}
+                  </div>
                 )}
+
                 {!smallBreak && (
                   <ListSelection
                     label={getTranslation(collection.labels.plural, i18n)}

@@ -569,6 +569,9 @@
         "addBelow": {
           "type": "string"
         },
+        "addFiles": {
+          "type": "string"
+        },
         "addFilter": {
           "type": "string"
         },
@@ -585,6 +588,9 @@
           "type": "string"
         },
         "backToDashboard": {
+          "type": "string"
+        },
+        "bulkUpload": {
           "type": "string"
         },
         "cancel": {

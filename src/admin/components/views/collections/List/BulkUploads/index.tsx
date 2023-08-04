@@ -4,12 +4,17 @@ import { Drawer } from '../../../../elements/Drawer';
 import Pill from '../../../../elements/Pill';
 
 import './index.scss';
+import { Dropzone } from '../../../../elements/Dropzone';
 
 const baseClass = 'bulk-uploads';
 const modalSlug = 'bulk-uploads';
 
 export const BulkUploads: React.FC = () => {
   const { openModal } = useModal();
+
+  const onDrop = React.useCallback((e: FileList) => {
+    console.log(e);
+  }, []);
 
   return (
     <div className={baseClass}>
@@ -21,7 +26,7 @@ export const BulkUploads: React.FC = () => {
         slug={modalSlug}
         title="Add Files"
       >
-        <h1>Bulk Upload</h1>
+        <Dropzone onChange={onDrop} />
       </Drawer>
     </div>
   );

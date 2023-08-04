@@ -1,6 +1,4 @@
-import React, {
-  useState, useRef, useEffect, useCallback,
-} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDocumentInfo } from '../../../../utilities/DocumentInfo';
 import useField from '../../../../forms/useField';
@@ -10,15 +8,11 @@ import Error from '../../../../forms/Error';
 import { Props } from './types';
 import reduceFieldsToValues from '../../../../forms/Form/reduceFieldsToValues';
 import Label from '../../../../forms/Label';
+import { Dropzone } from '../../../../elements/Dropzone';
 
 import './index.scss';
 
 const baseClass = 'file-field';
-
-const handleDrag = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-};
 
 const validate = (value) => {
   if (!value && value !== undefined) {
@@ -34,11 +28,6 @@ const Upload: React.FC<Props> = (props) => {
     internalState,
   } = props;
 
-  const inputRef = useRef(null);
-  const dropRef = useRef(null);
-  const [selectingFile, setSelectingFile] = useState(false);
-  const [dragging, setDragging] = useState(false);
-  const [dragCounter, setDragCounter] = useState(0);
   const [replacingFile, setReplacingFile] = useState(false);
   const { t } = useTranslation(['upload', 'general']);
   const [doc, setDoc] = useState(reduceFieldsToValues(internalState || {}, true));
@@ -54,39 +43,6 @@ const Upload: React.FC<Props> = (props) => {
     validate,
   });
 
-  const handleDragIn = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragCounter((count) => count + 1);
-    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
-      setDragging(true);
-    }
-  }, []);
-
-  const handleDragOut = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragCounter((count) => count - 1);
-    if (dragCounter > 1) return;
-    setDragging(false);
-  }, [dragCounter]);
-
-  const handleDrop = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragging(false);
-
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      setValue(e.dataTransfer.files[0]);
-      setDragging(false);
-
-      e.dataTransfer.clearData();
-      setDragCounter(0);
-    } else {
-      setDragging(false);
-    }
-  }, [setValue]);
-
   const handleFileNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const updatedFileName = e.target.value;
     if (value) {
@@ -97,48 +53,23 @@ const Upload: React.FC<Props> = (props) => {
     }
   };
 
-  // Only called when input is interacted with directly
-  // Not called when drag + drop is used
-  // Or when input is cleared
-  const handleInputChange = useCallback(() => {
-    setSelectingFile(false);
-    setValue(inputRef?.current?.files?.[0] || null);
-  }, [inputRef, setValue]);
+  const handleDropzoneDrop = React.useCallback((files: FileList) => {
+    const fileObject = files?.[0];
+    if (fileObject) setValue(fileObject);
+  }, [setValue]);
 
-  useEffect(() => {
-    if (selectingFile) {
-      inputRef.current.click();
-      setSelectingFile(false);
-    }
-  }, [selectingFile, inputRef, setSelectingFile]);
+  const handleFileRemoval = useCallback(() => {
+    setReplacingFile(true);
+    setValue(null);
+  }, [setValue]);
 
   useEffect(() => {
     setDoc(reduceFieldsToValues(internalState || {}, true));
     setReplacingFile(false);
   }, [internalState]);
 
-  useEffect(() => {
-    const div = dropRef.current;
-    if (div) {
-      div.addEventListener('dragenter', handleDragIn);
-      div.addEventListener('dragleave', handleDragOut);
-      div.addEventListener('dragover', handleDrag);
-      div.addEventListener('drop', handleDrop);
-
-      return () => {
-        div.removeEventListener('dragenter', handleDragIn);
-        div.removeEventListener('dragleave', handleDragOut);
-        div.removeEventListener('dragover', handleDrag);
-        div.removeEventListener('drop', handleDrop);
-      };
-    }
-
-    return () => null;
-  }, [handleDragIn, handleDragOut, handleDrop, value]);
-
   const classes = [
     baseClass,
-    dragging && `${baseClass}--dragging`,
     'field-type',
   ].filter(Boolean).join(' ');
 
@@ -150,16 +81,15 @@ const Upload: React.FC<Props> = (props) => {
         showError={showError}
         message={errorMessage}
       />
+
       {(doc.filename && !replacingFile) && (
         <FileDetails
           doc={doc}
           collection={collection}
-          handleRemove={canRemoveUpload ? () => {
-            setReplacingFile(true);
-            setValue(null);
-          } : undefined}
+          handleRemove={canRemoveUpload ? handleFileRemoval : undefined}
         />
       )}
+
       {(!doc.filename || replacingFile) && (
         <div className={`${baseClass}__upload`}>
           {value && (
@@ -168,6 +98,7 @@ const Upload: React.FC<Props> = (props) => {
                 label={t('fileName')}
                 required
               />
+
               <div className={`${baseClass}__file-upload`}>
                 <input
                   type="text"
@@ -175,52 +106,28 @@ const Upload: React.FC<Props> = (props) => {
                   value={value.name}
                   onChange={handleFileNameChange}
                 />
+
                 <Button
                   icon="x"
                   buttonStyle="none"
                   tooltip={t('general:cancel')}
                   onClick={() => {
                     setValue(null);
-                    inputRef.current.value = null;
                   }}
                 />
               </div>
             </div>
           )}
+
           {!value && (
             <React.Fragment>
-              <div
-                className={`${baseClass}__drop-zone`}
-                ref={dropRef}
-                onPaste={(e) => {
-                  if (e?.clipboardData?.files.length) {
-                    const fileObject = e.clipboardData.files[0];
-                    if (fileObject) setValue(fileObject);
-                  }
-                }}
-              >
-                <Button
-                  size="small"
-                  buttonStyle="secondary"
-                  onClick={() => setSelectingFile(true)}
-                  className={`${baseClass}__file-button`}
-                >
-                  {t('selectFile')}
-                </Button>
-                <p className={`${baseClass}__drag-label`}>
-                  {t('general:or')}
-                  {' '}
-                  {t('dragAndDrop')}
-                </p>
-              </div>
+              <Dropzone
+                onChange={handleDropzoneDrop}
+                className={`${baseClass}__dropzone`}
+                mimeTypes={collection?.upload?.mimeTypes}
+              />
             </React.Fragment>
           )}
-          <input
-            ref={inputRef}
-            type="file"
-            accept={collection?.upload?.mimeTypes?.join(',')}
-            onChange={handleInputChange}
-          />
         </div>
       )}
     </div>

@@ -1,0 +1,22 @@
+.dropzone {
+  background: var(--theme-elevation-100);
+  position: relative;
+  z-index: 2;
+  display: flex;
+  border: 1px dotted var(--theme-elevation-400);
+
+  &.dragging {
+    border-color: var(--theme-success-500);
+    background: var(--theme-success-150);
+
+    * {
+      pointer-events: none;
+    }
+  }
+
+  &__hidden-input {
+    position: absolute;
+    pointer-events: none;
+    visibility: hidden;
+  }
+}

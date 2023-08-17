@@ -29,7 +29,7 @@ import path, { dirname } from 'path';
 
 const _dirname = path.dirname(new URL(import.meta.url).pathname);
 
-
+ 
 export default buildConfigWithDefaults({
   admin: {
     webpack: (config) => ({

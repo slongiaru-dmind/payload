@@ -72,7 +72,7 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
         // Whether to polyfill `node:` protocol imports.
         protocolImports: true,
       }),
-      virtual.default({
+      (virtual?.default || virtual)({
         crypto: 'export default {}',
         https: 'export default {}',
         http: 'export default {}',

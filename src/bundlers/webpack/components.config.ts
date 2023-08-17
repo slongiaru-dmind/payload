@@ -20,7 +20,7 @@ export default {
     path: path.resolve(_dirname, '../../../components'),
     publicPath: '/',
     filename: 'index.js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'esmodules',
   },
   optimization: {
     minimizer: [new TerserJSPlugin({

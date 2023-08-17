@@ -10,7 +10,7 @@ import { FileUploadError, MissingFile } from '../errors';
 import { PayloadRequest } from '../express/types';
 import getImageSize from './getImageSize';
 import getSafeFileName from './getSafeFilename';
-import resizeAndSave from './imageResizer';
+import resizeAndTransformImageSizes from './imageResizer';
 import { FileData, FileToSave, ProbedImageSize } from './types';
 import canResizeImage from './canResizeImage';
 import isImage from './isImage';
@@ -116,6 +116,7 @@ export const generateFileData = async <T>({
       fileBuffer = await sharpFile.toBuffer({ resolveWithObject: true });
       ({ mime, ext } = await fromBuffer(fileBuffer.data)); // This is getting an incorrect gif height back.
       fileData.width = fileBuffer.info.width;
+      fileData.height = fileBuffer.info.height;
       fileData.filesize = fileBuffer.info.size;
 
       // Animated GIFs + WebP aggregate the height from every frame, so we need to use divide by number of pages
@@ -156,7 +157,7 @@ export const generateFileData = async <T>({
     if (Array.isArray(imageSizes) && fileSupportsResize) {
       req.payloadUploadSizes = {};
 
-      const { sizeData, sizesToSave } = await resizeAndSave({
+      const { sizeData, sizesToSave } = await resizeAndTransformImageSizes({
         req,
         file,
         dimensions,

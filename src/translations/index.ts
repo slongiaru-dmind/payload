@@ -24,6 +24,7 @@ import vi from './vi.json' assert { type: "json" };
 import zh from './zh.json' assert { type: "json" };
 import hu from './hu.json' assert { type: "json" };
 
+
 export default {
   ar,
   bg,
@@ -34,6 +35,7 @@ export default {
   fa,
   fr,
   hr,
+  hu,
   it,
   ja,
   my,
@@ -49,5 +51,4 @@ export default {
   ua,
   vi,
   zh,
-  hu,
 };

@@ -1,5 +1,100 @@
 
 
+# [1.14.0](https://github.com/payloadcms/payload/compare/v1.13.4...v1.14.0) (2023-08-16)
+
+
+### Bug Fixes
+
+* DatePicker showing only selected day by default ([#3169](https://github.com/payloadcms/payload/issues/3169)) ([edcb393](https://github.com/payloadcms/payload/commit/edcb3933cfb4532180c822135ea6a8be928e0fdc))
+* only allow redirects to /admin sub-routes ([c0f05a1](https://github.com/payloadcms/payload/commit/c0f05a1c38fb9c958de920fabb698b5ecfb661f0))
+* passes in height to resizeOptions upload option to allow height resize ([#3171](https://github.com/payloadcms/payload/issues/3171)) ([7963d04](https://github.com/payloadcms/payload/commit/7963d04a27888eb5a12d0ab37f2082cd33638abd))
+* WhereBuilder component does not accept all valid Where queries ([#3087](https://github.com/payloadcms/payload/issues/3087)) ([fdfdfc8](https://github.com/payloadcms/payload/commit/fdfdfc83f36a958971f8e4e4f9f5e51560cb26e0))
+
+
+### Features
+
+* add afterOperation hook ([#2697](https://github.com/payloadcms/payload/issues/2697)) ([33686c6](https://github.com/payloadcms/payload/commit/33686c6db8373a16d7f6b0192e0701bf15881aa4))
+* add support for hotkeys ([#1821](https://github.com/payloadcms/payload/issues/1821)) ([942cfec](https://github.com/payloadcms/payload/commit/942cfec286ff050e13417b037cca64b9d757d868))
+* Added Azerbaijani language file ([#3164](https://github.com/payloadcms/payload/issues/3164)) ([63e3063](https://github.com/payloadcms/payload/commit/63e3063b9ecc1afd62d7a287a798d41215008f2a))
+* allow async relationship filter options ([#2951](https://github.com/payloadcms/payload/issues/2951)) ([bad3638](https://github.com/payloadcms/payload/commit/bad363882c9d00d3c73547ca3329eba988e728ff))
+* Improve admin dashboard accessibility ([#3053](https://github.com/payloadcms/payload/issues/3053)) ([e03a8e6](https://github.com/payloadcms/payload/commit/e03a8e6b030e82a17e1cdae5b4032433cf9c75a4))
+* improve field ops ([#3172](https://github.com/payloadcms/payload/issues/3172)) ([d91b44c](https://github.com/payloadcms/payload/commit/d91b44cbb3fd526caca2a6f4bd30fd06ede3a5da))
+* make PAYLOAD_CONFIG_PATH optional ([#2839](https://github.com/payloadcms/payload/issues/2839)) ([5744de7](https://github.com/payloadcms/payload/commit/5744de7ec63e3f17df7e02a7cc827818a79dbbb8))
+* text alignment for richtext editor ([#2803](https://github.com/payloadcms/payload/issues/2803)) ([a0b13a5](https://github.com/payloadcms/payload/commit/a0b13a5b01fa0d7f4c4dffd1895bfe507e5c676d))
+
+## [1.13.4](https://github.com/payloadcms/payload/compare/v1.13.3...v1.13.4) (2023-08-11)
+
+
+### Bug Fixes
+
+* correctly passes block path inside buildFieldSchemaMap ([#3162](https://github.com/payloadcms/payload/issues/3162)) ([3c60abd](https://github.com/payloadcms/payload/commit/3c60abd61aaf24d49712c80bcbd0f1113c22b85a))
+
+## [1.13.3](https://github.com/payloadcms/payload/compare/v1.13.2...v1.13.3) (2023-08-11)
+
+
+### Bug Fixes
+
+* unable to add arrays inside secondary named tabs ([#3158](https://github.com/payloadcms/payload/issues/3158)) ([cb04d4a](https://github.com/payloadcms/payload/commit/cb04d4a82a68a764330582b93882d422b32c2527))
+
+## [1.13.2](https://github.com/payloadcms/payload/compare/v1.13.1...v1.13.2) (2023-08-10)
+
+## [1.13.1](https://github.com/payloadcms/payload/compare/v1.13.0...v1.13.1) (2023-08-08)
+
+
+### Bug Fixes
+
+* updates addFieldRow and replaceFieldRow rowIndex insertion ([#3145](https://github.com/payloadcms/payload/issues/3145)) ([f5cf546](https://github.com/payloadcms/payload/commit/f5cf546e1918de66998d5f0e5410bfbc1f054567))
+
+# [1.13.0](https://github.com/payloadcms/payload/compare/v1.12.0...v1.13.0) (2023-08-08)
+
+
+### Bug Fixes
+
+* `setPreference()` return type ([#3125](https://github.com/payloadcms/payload/issues/3125)) ([463d6bb](https://github.com/payloadcms/payload/commit/463d6bbec66e61523bae3869df88bd98e7617390))
+* absolute staticURL admin thumbnails ([#3135](https://github.com/payloadcms/payload/issues/3135)) ([1039f39](https://github.com/payloadcms/payload/commit/1039f39c09260537616b22228080466e8df6e981))
+* adding and replacing similarly shaped block configs ([#3140](https://github.com/payloadcms/payload/issues/3140)) ([8e188cf](https://github.com/payloadcms/payload/commit/8e188cfe61db808c94d726967affdadf2e5abb9f))
+
+
+### Features
+
+* default tab labels from name ([#3129](https://github.com/payloadcms/payload/issues/3129)) ([e8f0516](https://github.com/payloadcms/payload/commit/e8f05165eb3a28c00deb11931db01ad1f8c75c74))
+* radio and select fields are filterable by options ([#3136](https://github.com/payloadcms/payload/issues/3136)) ([b117e73](https://github.com/payloadcms/payload/commit/b117e7346434bfc8edbfa92f5db45f63c57bab08))
+* recursive saveToJWT field support ([#3130](https://github.com/payloadcms/payload/issues/3130)) ([c6e0908](https://github.com/payloadcms/payload/commit/c6e09080767dad2ab8128ba330b2b344bb25ac6f))
+
+# [1.12.0](https://github.com/payloadcms/payload/compare/v1.11.8...v1.12.0) (2023-08-04)
+
+
+### Bug Fixes
+
+* excludes useAsTitle field from searchableFields in collection view ([#3105](https://github.com/payloadcms/payload/issues/3105)) ([8c4d251](https://github.com/payloadcms/payload/commit/8c4d2514b0f195e0059c6063346199785979c70c))
+* relationship field filter long titles ([#3113](https://github.com/payloadcms/payload/issues/3113)) ([da27a8a](https://github.com/payloadcms/payload/commit/da27a8aadbb103c5f6fe0ccc62c032876851b88f))
+* wrong links in verification and forgot password emails if serverURL not set ([#3010](https://github.com/payloadcms/payload/issues/3010)) ([6a189c6](https://github.com/payloadcms/payload/commit/6a189c6548b233aba64598af8804a56ec47e45f0))
+
+
+### Features
+
+* add support for sharp resize options ([#2844](https://github.com/payloadcms/payload/issues/2844)) ([144bb81](https://github.com/payloadcms/payload/commit/144bb81721814c19eb4957d4c8fcc845c73e2aa4))
+* allows for upload relationship drawer to be opened ([#3108](https://github.com/payloadcms/payload/issues/3108)) ([ea73e68](https://github.com/payloadcms/payload/commit/ea73e689ac46f2a7ba3b6c34e7a190944b5d5868))
+* option to pre-fill login credentials automatically ([#3021](https://github.com/payloadcms/payload/issues/3021)) ([c5756ed](https://github.com/payloadcms/payload/commit/c5756ed4a13b46bc73ae7b23309d6e9980fc81bf))
+* programmatic control over array and block rows inside the form  ([#3110](https://github.com/payloadcms/payload/issues/3110)) ([a78c463](https://github.com/payloadcms/payload/commit/a78c4631b4aabb5b57448ab21ef98749b1cf1935))
+* set JWT token field name with saveToJWT ([#3126](https://github.com/payloadcms/payload/issues/3126)) ([356f174](https://github.com/payloadcms/payload/commit/356f174b9ff601facb0062d0b65db18803ef2aa2))
+
+## [1.11.8](https://github.com/payloadcms/payload/compare/v1.11.7...v1.11.8) (2023-07-31)
+
+## [1.11.7](https://github.com/payloadcms/payload/compare/v1.11.6...v1.11.7) (2023-07-27)
+
+
+### Bug Fixes
+
+* [#3062](https://github.com/payloadcms/payload/issues/3062) ([0280953](https://github.com/payloadcms/payload/commit/02809532b484d9018c6528cfbbbb43abfd55a540))
+* array row deletion ([#3062](https://github.com/payloadcms/payload/issues/3062)) ([cf9795b](https://github.com/payloadcms/payload/commit/cf9795b8d8b53c48335ff4c32c6c51b3de4f7bc9))
+* incorrect image rotation after being processed by sharp ([#3081](https://github.com/payloadcms/payload/issues/3081)) ([0a91950](https://github.com/payloadcms/payload/commit/0a91950f052ce40427801e6561a0f676354a2ca4))
+
+
+### Features
+
+* ability to add context to payload's request object ([#2796](https://github.com/payloadcms/payload/issues/2796)) ([67ba131](https://github.com/payloadcms/payload/commit/67ba131cc61f3d3b30ef9ef7fc150344ca82da2f))
+
 ## [1.11.6](https://github.com/payloadcms/payload/compare/v1.11.5...v1.11.6) (2023-07-25)
 
 

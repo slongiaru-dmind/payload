@@ -1,5 +1,6 @@
 import React from 'react';
-import { components as SelectComponents, ControlProps } from 'react-select';
+import { components as SelectComponents } from 'react-select';
+import type { ControlProps } from 'react-select';
 import type { Option } from '../types';
 
 export const Control: React.FC<ControlProps<Option, any>> = (props) => {
@@ -32,6 +33,9 @@ export const Control: React.FC<ControlProps<Option, any>> = (props) => {
         onKeyDown: (e) => {
           if (disableKeyDown) {
             e.stopPropagation();
+            // Create event for keydown listeners which specifically want to bypass this stopPropagation
+            const bypassEvent = new CustomEvent('bypassKeyDown', { detail: e });
+            document.dispatchEvent(bypassEvent);
           }
         },
       }}

@@ -26,7 +26,7 @@ const ResetPassword = lazy(() => import('./views/ResetPassword'));
 const Unauthorized = lazy(() => import('./views/Unauthorized'));
 const Account = lazy(() => import('./views/Account'));
 
-const Routes: React.FC = () => {
+export const Routes: React.FC = () => {
   const [initialized, setInitialized] = useState(null);
   const { user, permissions, refreshCookie } = useAuth();
   const { i18n } = useTranslation();
@@ -315,7 +315,7 @@ const Routes: React.FC = () => {
                         <Unauthorized />
                       )}
                     </Fragment>
-                  ) : <Redirect to={`${match.url}/login?redirect=${encodeURIComponent(window.location.pathname)}`} />}
+                  ) : <Redirect to={`${match.url}/login${window.location.pathname.startsWith(routes.admin) ? `?redirect=${encodeURIComponent(window.location.pathname.replace(routes.admin, ''))}` : ''}`} />}
                 </Route>
                 <Route path={`${match.url}*`}>
                   <NotFound />
@@ -331,5 +331,3 @@ const Routes: React.FC = () => {
     </Suspense>
   );
 };
-
-export default Routes;

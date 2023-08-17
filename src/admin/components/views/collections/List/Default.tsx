@@ -27,7 +27,7 @@ import './index.scss';
 
 const baseClass = 'collection-list';
 
-const DefaultList: React.FC<Props> = (props) => {
+export const DefaultList: React.FC<Props> = (props) => {
   const {
     collection,
     collection: {
@@ -100,7 +100,10 @@ const DefaultList: React.FC<Props> = (props) => {
                   {getTranslation(pluralLabel, i18n)}
                 </h1>
                 {hasCreatePermission && (
-                  <Pill to={newDocumentURL}>
+                  <Pill
+                    to={newDocumentURL}
+                    aria-label={t('createNewLabel', { label: getTranslation(singularLabel, i18n) })}
+                  >
                     {t('createNew')}
                   </Pill>
                 )}
@@ -236,4 +239,4 @@ const DefaultList: React.FC<Props> = (props) => {
   );
 };
 
-export default DefaultList;
+// export default DefaultList;

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Props } from './types';
 import RenderCustomComponent from '../../../utilities/RenderCustomComponent';
-import ReactSelect from '../../ReactSelect';
+import { ReactSelect } from '../../ReactSelect';
 import Button from '../../Button';
 import Date from './Date';
 import Number from './Number';
 import Text from './Text';
 import Relationship from './Relationship';
+import { Select } from './Select';
 import useDebounce from '../../../../hooks/useDebounce';
 import { FieldCondition } from '../types';
 
@@ -17,6 +18,7 @@ const valueFields = {
   Number,
   Text,
   Relationship,
+  Select,
 };
 
 const baseClass = 'condition';
@@ -56,7 +58,15 @@ const Condition: React.FC<Props> = (props) => {
     });
   }, [debouncedValue, dispatch, orIndex, andIndex]);
 
-  const ValueComponent = valueFields[activeField?.component] || valueFields.Text;
+  const booleanSelect = ['exists'].includes(operatorValue) || activeField.props.type === 'checkbox';
+  const ValueComponent = booleanSelect ? Select : (valueFields[activeField?.component] || valueFields.Text);
+
+  let selectOptions;
+  if (booleanSelect) {
+    selectOptions = ['true', 'false'];
+  } else if ('options' in activeField?.props) {
+    selectOptions = activeField.props.options;
+  }
 
   return (
     <div className={baseClass}>
@@ -95,6 +105,7 @@ const Condition: React.FC<Props> = (props) => {
               DefaultComponent={ValueComponent}
               componentProps={{
                 ...activeField?.props,
+                options: selectOptions,
                 operator: operatorValue,
                 value: internalValue,
                 onChange: setInternalValue,

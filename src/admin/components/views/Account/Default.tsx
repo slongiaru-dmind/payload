@@ -8,7 +8,7 @@ import PreviewButton from '../../elements/PreviewButton';
 import { Save } from '../../elements/Save';
 import RenderFields from '../../forms/RenderFields';
 import CopyToClipboard from '../../elements/CopyToClipboard';
-import fieldTypes from '../../forms/field-types';
+import { fieldTypes } from '../../forms/field-types';
 import RenderTitle from '../../elements/RenderTitle';
 import LeaveWithoutSaving from '../../modals/LeaveWithoutSaving';
 import Meta from '../../utilities/Meta';
@@ -17,7 +17,7 @@ import { Props } from './types';
 import { OperationContext } from '../../utilities/OperationProvider';
 import { ToggleTheme } from './ToggleTheme';
 import { Gutter } from '../../elements/Gutter';
-import ReactSelect from '../../elements/ReactSelect';
+import { ReactSelect } from '../../elements/ReactSelect';
 import Label from '../../forms/Label';
 import type { Translation } from '../../../../translations/type';
 import { LoadingOverlayToggle } from '../../elements/Loading';
@@ -130,9 +130,11 @@ const DefaultAccount: React.FC<Props> = (props) => {
                     <h3>{t('general:payloadSettings')}</h3>
                     <div className={`${baseClass}__language`}>
                       <Label
+                        htmlFor="language-select"
                         label={t('general:language')}
                       />
                       <ReactSelect
+                        inputId="language-select"
                         value={languageOptions.find((language) => (language.value === i18n.language))}
                         options={languageOptions}
                         onChange={({ value }) => (i18n.changeLanguage(value))}

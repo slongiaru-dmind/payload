@@ -1,4 +1,4 @@
-import path from 'path';
+import path, { dirname } from 'path';
 import { InlineConfig, createLogger } from 'vite';
 import viteCommonJS from 'vite-plugin-commonjs';
 import virtual from 'vite-plugin-virtual';
@@ -10,6 +10,13 @@ import getPort from 'get-port';
 import { getDevConfig as getDevWebpackConfig } from '../../webpack/configs/dev';
 import type { SanitizedConfig } from '../../../config/types';
 
+import { fileURLToPath } from 'url';
+import { createRequire } from 'node:module';
+
+const __filename = fileURLToPath(import.meta.url);
+const _dirname = dirname(__filename);
+const require = createRequire(import.meta.url);
+
 const logger = createLogger('warn', { prefix: '[VITE-WARNING]', allowClearScreen: false });
 const originalWarning = logger.warn;
 logger.warn = (msg, options) => {
@@ -18,8 +25,8 @@ logger.warn = (msg, options) => {
   originalWarning(msg, options);
 };
 
-const bundlerPath = path.resolve(__dirname, '../bundler');
-const relativeAdminPath = path.resolve(__dirname, '../../../admin');
+const bundlerPath = path.resolve(_dirname, '../bundler');
+const relativeAdminPath = path.resolve(_dirname, '../../../admin');
 
 export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<InlineConfig> => {
   const webpackConfig = getDevWebpackConfig(payloadConfig);
@@ -27,7 +34,7 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
   const hmrPort = await getPort();
 
   return {
-    root: path.resolve(__dirname, '../../../admin'),
+    root: path.resolve(_dirname, '../../../admin'),
     base: payloadConfig.routes.admin,
     customLogger: logger,
     server: {
@@ -56,7 +63,6 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
         http: 'export default {}',
       }),
       react(),
-      viteCommonJS(),
       {
         name: 'init-admin-panel',
         transformIndexHtml(html) {
@@ -83,13 +89,10 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
 
     build: {
       outDir: payloadConfig.admin.buildPath,
-      commonjsOptions: {
-        transformMixedEsModules: true,
-      },
+
       rollupOptions: {
         plugins: [
           image(),
-          rollupCommonJS(),
           scss({
             output: path.resolve(payloadConfig.admin.buildPath, 'styles.css'),
             outputStyle: 'compressed',
@@ -98,7 +101,7 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
         ],
         treeshake: true,
         input: {
-          main: path.resolve(__dirname, relativeAdminPath),
+          main: path.resolve(_dirname, relativeAdminPath),
         },
       },
     },

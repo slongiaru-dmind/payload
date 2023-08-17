@@ -37,6 +37,8 @@ if (process.argv.includes('--no-auto-login') && process.env.NODE_ENV !== 'produc
 
 const expressApp = express();
 
+console.log('STARTY')
+
 const startDev = async () => {
   await payload.init({
     secret: uuid(),

@@ -29,9 +29,13 @@ const bundlerPath = path.resolve(_dirname, '../bundler');
 const relativeAdminPath = path.resolve(_dirname, '../../../admin');
 
 export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<InlineConfig> => {
+  console.log('AAA')
+
   const webpackConfig = getDevWebpackConfig(payloadConfig);
   const webpackAliases = webpackConfig?.resolve?.alias || {} as any;
   const hmrPort = await getPort();
+
+
 
   return {
     root: path.resolve(_dirname, '../../../admin'),

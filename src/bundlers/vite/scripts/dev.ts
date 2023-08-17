@@ -24,5 +24,7 @@ export const devAdmin: DevAdminType = async ({ payload, viteConfig: viteConfigAr
     throw new Error('Error: there was an error creating the vite dev server.');
   }
 
+  console.log('YAYA')
+
   return router;
 };

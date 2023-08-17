@@ -17,14 +17,26 @@ const loadConfig = async (logger?: pino.Logger): Promise<SanitizedConfig> => {
 
   const configPath = findConfig();
 
+  console.log('6')
+
+
   clientFiles.forEach((ext) => {
     require.extensions[ext] = () => null;
   });
 
+  console.log('6.5', configPath)
+
+
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const configPromise = await import(configPath);
 
+  console.log('7')
+
+
   let config = await configPromise;
+  console.log('8')
+
+
 
   if (config.default) config = await config.default;
 

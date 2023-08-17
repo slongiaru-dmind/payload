@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import fs from 'fs';
-import path from 'path';
+import path, { dirname } from 'path';
 import { buildConfigWithDefaults } from '../buildConfigWithDefaults';
 import { devUser } from '../credentials';
 import ArrayFields, { arrayDoc } from './collections/Array';
@@ -26,7 +26,7 @@ import Uploads2 from './collections/Upload2';
 import Uploads3 from './collections/Uploads3';
 import RowFields from './collections/Row';
 
-const _dirname = path.dirname(new URL(import.meta.url).pathname);
+const _dirname = dirname(new URL(import.meta.url).pathname);
 
 
 export default buildConfigWithDefaults({
@@ -37,6 +37,7 @@ export default buildConfigWithDefaults({
         ...config.resolve,
         alias: {
           ...config?.resolve?.alias,
+          fs: path.resolve(_dirname, './mocks/emptyModule.js'),
         },
       },
     }),

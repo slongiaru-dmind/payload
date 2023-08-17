@@ -34,7 +34,8 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
   const webpackAliases = webpackConfig?.resolve?.alias || {} as any;
   const hmrPort = await getPort();
 
-
+  // @ts-expect-error
+  const virtualFunction = typeof virtual === 'function' ? virtual : virtual?.default;
 
   return {
     root: path.resolve(_dirname, '../../../admin'),
@@ -72,7 +73,7 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
         // Whether to polyfill `node:` protocol imports.
         protocolImports: true,
       }),
-      (virtual?.default || virtual)({
+      virtualFunction({
         crypto: 'export default {}',
         https: 'export default {}',
         http: 'export default {}',

@@ -1,4 +1,4 @@
-import {build} from 'vite';
+import { build } from 'vite';
 import type { InlineConfig } from 'vite';
 import { SanitizedConfig } from '../../../config/types';
 import { getViteConfig } from '../configs/vite';

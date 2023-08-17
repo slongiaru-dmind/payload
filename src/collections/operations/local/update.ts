@@ -2,7 +2,7 @@ import { Config as GeneratedTypes } from 'payload/generated-types';
 import { DeepPartial } from 'ts-essentials';
 import { Payload } from '../../../payload';
 import { Document, Where } from '../../../types';
-import getFileByPath from '../../../uploads/getFileByPath';
+import { getFileByPath } from '../../../uploads/getFileByPath';
 import update from '../update';
 import { PayloadRequest, RequestContext } from '../../../express/types';
 import { getDataLoader } from '../../dataloader';

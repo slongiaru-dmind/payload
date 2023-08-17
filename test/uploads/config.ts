@@ -1,11 +1,12 @@
 import path from 'path';
 import { buildConfigWithDefaults } from '../buildConfigWithDefaults';
 import { devUser } from '../credentials';
-import getFileByPath from '../../src/uploads/getFileByPath';
+import { getFileByPath } from '../../src/uploads/getFileByPath';
 import removeFiles from '../helpers/removeFiles';
 import { Uploads1 } from './collections/Upload1';
 import Uploads2 from './collections/Upload2';
 import AdminThumbnailCol from './collections/admin-thumbnail';
+
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 export const mediaSlug = 'media';

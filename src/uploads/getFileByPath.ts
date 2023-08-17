@@ -1,10 +1,11 @@
 import fs from 'fs';
-import filetype from 'file-type';
-const { fromFile } = filetype;
 import path from 'path';
+import filetype from 'file-type';
 import { File } from './types';
 
-const getFileByPath = async (filePath: string): Promise<File> => {
+const { fromFile } = filetype;
+
+export const getFileByPath = async (filePath: string): Promise<File> => {
   if (typeof filePath === 'string') {
     const data = fs.readFileSync(filePath);
     const mimetype = fromFile(filePath);
@@ -22,5 +23,3 @@ const getFileByPath = async (filePath: string): Promise<File> => {
 
   return undefined;
 };
-
-export default getFileByPath;

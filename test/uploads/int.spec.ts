@@ -1,17 +1,18 @@
-import FormData from 'form-data';
 import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
+import FormData from 'form-data';
 import payload from '../../src';
-import getFileByPath from '../../src/uploads/getFileByPath';
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+import { getFileByPath } from '../../src/uploads/getFileByPath';
 import { initPayloadTest } from '../helpers/configHelpers';
 import { RESTClient } from '../helpers/rest';
 import configPromise, { enlargeSlug, mediaSlug, reduceSlug, relationSlug } from './config';
 
-const stat = promisify(fs.stat);
+import 'isomorphic-fetch';
 
-import 'isomorphic-fetch'
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+const stat = promisify(fs.stat);
 
 describe('Collections - Uploads', () => {
   let client: RESTClient;

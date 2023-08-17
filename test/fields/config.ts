@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import fs from 'fs';
+import path from 'path';
 import { buildConfigWithDefaults } from '../buildConfigWithDefaults';
 import { devUser } from '../credentials';
 import ArrayFields, { arrayDoc } from './collections/Array';
@@ -13,7 +14,7 @@ import TabsFields, { tabsDoc } from './collections/Tabs';
 import TextFields, { textDoc, textFieldsSlug } from './collections/Text';
 import PointFields, { pointDoc } from './collections/Point';
 import GroupFields, { groupDoc } from './collections/Group';
-import getFileByPath from '../../src/uploads/getFileByPath';
+import { getFileByPath } from '../../src/uploads/getFileByPath';
 import Uploads, { uploadsDoc } from './collections/Upload';
 import IndexedFields from './collections/Indexed';
 import NumberFields, { numberDoc } from './collections/Number';
@@ -24,12 +25,10 @@ import RadioFields, { radiosDoc } from './collections/Radio';
 import Uploads2 from './collections/Upload2';
 import Uploads3 from './collections/Uploads3';
 import RowFields from './collections/Row';
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
 
 const _dirname = path.dirname(new URL(import.meta.url).pathname);
 
- 
+
 export default buildConfigWithDefaults({
   admin: {
     webpack: (config) => ({
@@ -38,7 +37,6 @@ export default buildConfigWithDefaults({
         ...config.resolve,
         alias: {
           ...config?.resolve?.alias,
-          fs: path.resolve(_dirname, './mocks/emptyModule.js'),
         },
       },
     }),

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import path, {dirname} from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
 import { v4 as uuid } from 'uuid';
@@ -36,8 +36,6 @@ if (process.argv.includes('--no-auto-login') && process.env.NODE_ENV !== 'produc
 }
 
 const expressApp = express();
-
-console.log('STARTY')
 
 const startDev = async () => {
   await payload.init({

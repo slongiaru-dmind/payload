@@ -1,4 +1,5 @@
 import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { InlineConfig, createLogger } from 'vite';
 import virtual from 'vite-plugin-virtual';
 import scss from 'rollup-plugin-scss';
@@ -8,13 +9,9 @@ import getPort from 'get-port';
 import { getDevConfig as getDevWebpackConfig } from '../../webpack/configs/dev';
 import type { SanitizedConfig } from '../../../config/types';
 
-import { fileURLToPath } from 'url';
-import { createRequire } from 'node:module';
 
 const __filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(__filename);
-const require = createRequire(import.meta.url);
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 const logger = createLogger('warn', { prefix: '[VITE-WARNING]', allowClearScreen: false });
 const originalWarning = logger.warn;
@@ -28,13 +25,9 @@ const bundlerPath = path.resolve(_dirname, '../bundler');
 const relativeAdminPath = path.resolve(_dirname, '../../../admin');
 
 export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<InlineConfig> => {
-  console.log('AAA', virtual)
-
   const webpackConfig = getDevWebpackConfig(payloadConfig);
   const webpackAliases = webpackConfig?.resolve?.alias || {} as any;
   const hmrPort = await getPort();
-
-
 
   return {
     root: path.resolve(_dirname, '../../../admin'),
@@ -51,6 +44,7 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
         // Alternative is to remove ~ from the import
         '~payload-user-css': payloadConfig.admin.css,
         '~react-toastify': 'react-toastify',
+        path: 'path-browserify',
         ...(webpackAliases || {}),
       },
     },
@@ -60,18 +54,6 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
       process: '({argv:[],env:{},cwd:()=>""})',
     },
     plugins: [
-      nodePolyfills({
-        // To exclude specific polyfills, add them to this list.
-      
-        // Whether to polyfill specific globals.
-        globals: {
-          Buffer: true, // can also be 'build', 'dev', or false
-          global: true,
-          process: true,
-        },
-        // Whether to polyfill `node:` protocol imports.
-        protocolImports: true,
-      }),
       (virtual?.default || virtual)({
         crypto: 'export default {}',
         https: 'export default {}',

@@ -1,8 +1,8 @@
+import crypto from 'crypto';
+import path from 'path';
 import pino from 'pino';
 import type { Express, Router } from 'express';
 import { ExecutionResult, GraphQLSchema, ValidationRule } from 'graphql';
-import crypto from 'crypto';
-import path from 'path';
 import mongoose from 'mongoose';
 import { Config as GeneratedTypes } from 'payload/generated-types';
 import { OperationArgs, Request as graphQLRequest } from 'graphql-http/lib/handler';
@@ -158,9 +158,6 @@ export class BasePayload<TGeneratedTypes extends GeneratedTypes> {
       this.mongoMemoryServer = await connectMongoose(this.mongoURL, options.mongoOptions, this.logger);
     }
 
-    console.log('HI')
-
-
     this.logger.info('Starting Payload...');
     if (!options.secret) {
       throw new Error(
@@ -171,8 +168,6 @@ export class BasePayload<TGeneratedTypes extends GeneratedTypes> {
     if (options.mongoURL !== false && typeof options.mongoURL !== 'string') {
       throw new Error('Error: missing MongoDB connection URL.');
     }
-    console.log('2')
-
 
     this.secret = crypto
       .createHash('sha256')
@@ -181,8 +176,6 @@ export class BasePayload<TGeneratedTypes extends GeneratedTypes> {
       .slice(0, 32);
 
     this.local = options.local;
-
-    console.log('3')
 
 
     if (options.config) {
@@ -199,18 +192,11 @@ export class BasePayload<TGeneratedTypes extends GeneratedTypes> {
       };
     } else {
       // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-      console.log('4')
 
       const loadConfig = (await import('./config/load')).default;
-      console.log('4-5')
 
       this.config = await loadConfig(this.logger);
-
-      console.log('5')
-
     }
-
-    console.log('YEE')
 
 
     // Configure email service
@@ -239,9 +225,6 @@ export class BasePayload<TGeneratedTypes extends GeneratedTypes> {
       if (typeof options.onInit === 'function') await options.onInit(this);
       if (typeof this.config.onInit === 'function') await this.config.onInit(this);
     }
-
-    console.log('WOO')
-
 
     return this;
   }

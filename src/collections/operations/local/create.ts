@@ -4,7 +4,7 @@ import { MarkOptional } from 'ts-essentials';
 import { Payload } from '../../../payload';
 import { PayloadRequest, RequestContext } from '../../../express/types';
 import { Document } from '../../../types';
-import getFileByPath from '../../../uploads/getFileByPath';
+import { getFileByPath } from '../../../uploads/getFileByPath';
 import create from '../create';
 import { getDataLoader } from '../../dataloader';
 import { File } from '../../../uploads/types';

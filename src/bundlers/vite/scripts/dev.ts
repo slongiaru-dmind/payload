@@ -1,5 +1,5 @@
 import type { InlineConfig } from 'vite';
-import {createServer} from 'vite';
+import { createServer } from 'vite';
 import express from 'express';
 import type { PayloadHandler } from '../../../config/types';
 import { Payload } from '../../../payload';
@@ -23,8 +23,6 @@ export const devAdmin: DevAdminType = async ({ payload, viteConfig: viteConfigAr
     console.error(err);
     throw new Error('Error: there was an error creating the vite dev server.');
   }
-
-  console.log('YAYA')
 
   return router;
 };

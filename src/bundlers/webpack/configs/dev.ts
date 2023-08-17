@@ -1,9 +1,9 @@
+import { fileURLToPath } from 'url';
+import { createRequire } from 'node:module';
 import webpack, { Configuration } from 'webpack';
 import md5 from 'md5';
 import { getBaseConfig } from './base';
 import { SanitizedConfig } from '../../../config/types';
-import { fileURLToPath } from 'url';
-import { createRequire } from 'node:module';
 
 const __filename = fileURLToPath(import.meta.url);
 

@@ -2,8 +2,6 @@ import * as React from 'react';
 import { useForm } from '../../../../../../src/admin/components/forms/Form/context';
 import useField from '../../../../../../src/admin/components/forms/useField';
 
-import './index.scss';
-
 const baseClass = 'custom-blocks-field-management';
 
 export const AddCustomBlocks: React.FC = () => {

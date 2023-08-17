@@ -1,10 +1,8 @@
 import path, { dirname } from 'path';
 import { InlineConfig, createLogger } from 'vite';
-import viteCommonJS from 'vite-plugin-commonjs';
 import virtual from 'vite-plugin-virtual';
 import scss from 'rollup-plugin-scss';
 import image from '@rollup/plugin-image';
-import rollupCommonJS from '@rollup/plugin-commonjs';
 import react from '@vitejs/plugin-react';
 import getPort from 'get-port';
 import { getDevConfig as getDevWebpackConfig } from '../../webpack/configs/dev';
@@ -16,6 +14,7 @@ import { createRequire } from 'node:module';
 const __filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 const logger = createLogger('warn', { prefix: '[VITE-WARNING]', allowClearScreen: false });
 const originalWarning = logger.warn;
@@ -29,7 +28,7 @@ const bundlerPath = path.resolve(_dirname, '../bundler');
 const relativeAdminPath = path.resolve(_dirname, '../../../admin');
 
 export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<InlineConfig> => {
-  console.log('AAA')
+  console.log('AAA', virtual)
 
   const webpackConfig = getDevWebpackConfig(payloadConfig);
   const webpackAliases = webpackConfig?.resolve?.alias || {} as any;
@@ -61,7 +60,19 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
       process: '({argv:[],env:{},cwd:()=>""})',
     },
     plugins: [
-      virtual({
+      nodePolyfills({
+        // To exclude specific polyfills, add them to this list.
+      
+        // Whether to polyfill specific globals.
+        globals: {
+          Buffer: true, // can also be 'build', 'dev', or false
+          global: true,
+          process: true,
+        },
+        // Whether to polyfill `node:` protocol imports.
+        protocolImports: true,
+      }),
+      virtual.default({
         crypto: 'export default {}',
         https: 'export default {}',
         http: 'export default {}',

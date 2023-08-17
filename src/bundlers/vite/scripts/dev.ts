@@ -1,5 +1,5 @@
 import type { InlineConfig } from 'vite';
-import vite from 'vite';
+import {createServer} from 'vite';
 import express from 'express';
 import type { PayloadHandler } from '../../../config/types';
 import { Payload } from '../../../payload';
@@ -16,7 +16,7 @@ export const devAdmin: DevAdminType = async ({ payload, viteConfig: viteConfigAr
 
   try {
     const viteConfig = await getViteConfig(payload.config);
-    const viteServer = await vite.createServer(viteConfig);
+    const viteServer = await createServer(viteConfig);
 
     router.use(viteServer.middlewares);
   } catch (err) {

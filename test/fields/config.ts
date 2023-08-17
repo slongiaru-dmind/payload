@@ -27,8 +27,8 @@ import RowFields from './collections/Row';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const _dirname = dirname(__filename);
+const _dirname = path.dirname(new URL(import.meta.url).pathname);
+
 
 export default buildConfigWithDefaults({
   admin: {

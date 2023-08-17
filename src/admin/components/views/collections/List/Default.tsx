@@ -104,12 +104,15 @@ const DefaultList: React.FC<Props> = (props) => {
                 </h1>
                 {hasCreatePermission && (
                   <div className={`${baseClass}__action-pills`}>
-                    <Pill to={newDocumentURL}>
+                    <Pill
+                      to={newDocumentURL}
+                      aria-label={t('createNewLabel', { label: getTranslation(singularLabel, i18n) })}
+                    >
                       {t('createNew')}
                     </Pill>
 
                     {isUploadCollection && (
-                      <BulkUploads />
+                    <BulkUploads />
                     )}
                   </div>
                 )}

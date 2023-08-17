@@ -28,6 +28,8 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
   const webpackConfig = getDevWebpackConfig(payloadConfig);
   const webpackAliases = webpackConfig?.resolve?.alias || {} as any;
   const hmrPort = await getPort();
+  // @ts-expect-error needed for esm
+  const virtualFunction = typeof virtual === 'function' ? virtual : virtual?.default;
 
   return {
     root: path.resolve(_dirname, '../../../admin'),
@@ -54,7 +56,7 @@ export const getViteConfig = async (payloadConfig: SanitizedConfig): Promise<Inl
       process: '({argv:[],env:{},cwd:()=>""})',
     },
     plugins: [
-      (virtual?.default || virtual)({
+      virtualFunction({
         crypto: 'export default {}',
         https: 'export default {}',
         http: 'export default {}',

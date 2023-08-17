@@ -7,6 +7,7 @@ export type Props = {
   title?: string
   header?: React.ReactNode
   gutter?: boolean
+  closeAreaSize?: 'default' | 'small'
 }
 
 export type TogglerProps = HTMLAttributes<HTMLButtonElement> & {

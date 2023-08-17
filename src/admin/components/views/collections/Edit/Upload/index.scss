@@ -10,33 +10,6 @@
     bottom: calc(100% - #{base(.5)});
   }
 
-  &__drag-label {
-    margin: 0;
-    text-transform: lowercase;
-  }
-
-  &__dropzone {
-    display: flex;
-    align-items: center;
-    gap: $baseline;
-    padding: base(2);
-    z-index: 1;
-    position: relative;
-
-    .btn {
-      margin: 0;
-    }
-  }
-
-  &__file-selected,
-  &__drop-zone {
-    background: var(--theme-elevation-100);
-    position: relative;
-    z-index: 2;
-    padding: base(2);
-    display: flex;
-  }
-
   &__file-selected {
     flex-direction: column;
     .btn {
@@ -74,22 +47,5 @@
     padding-top: base(.25);
     padding-bottom: base(.25);
     flex-wrap: nowrap;
-  }
-
-  @include mid-break {
-    &__dropzone {
-      display: block;
-      text-align: center;
-
-      .btn {
-        margin: 0 auto;
-        width: 100%;
-        max-width: 200px;
-      }
-
-      .file-field__drag-label {
-        display: none;
-      }
-    }
   }
 }

@@ -19,6 +19,8 @@ export const reduceSlug = 'reduce';
 
 export const adminThumbnailSlug = 'admin-thumbnail';
 
+export const uploads1Slug = 'uploads-1';
+
 const mockModulePath = path.resolve(__dirname, './mocks/mockFSModule.js');
 
 export default buildConfigWithDefaults({

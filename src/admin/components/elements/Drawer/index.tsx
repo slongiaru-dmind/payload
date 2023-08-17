@@ -12,6 +12,9 @@ import './index.scss';
 const baseClass = 'drawer';
 const zBase = 100;
 
+const DrawerDepthContext = React.createContext(0);
+const useDrawerDepth = () => React.useContext(DrawerDepthContext);
+
 export const formatDrawerSlug = ({
   slug,
   depth,
@@ -55,11 +58,13 @@ export const Drawer: React.FC<Props> = ({
   header,
   title,
   gutter = true,
+  closeAreaSize: closeButtonSize = 'default',
 }) => {
   const { t } = useTranslation('general');
   const { closeModal, modalState } = useModal();
   const { breakpoints: { m: midBreak } } = useWindowInfo();
-  const drawerDepth = useEditDepth();
+  const editDepth = useEditDepth();
+  const drawerDepth = useDrawerDepth();
   const [isOpen, setIsOpen] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
 
@@ -74,6 +79,17 @@ export const Drawer: React.FC<Props> = ({
   if (isOpen) {
     // IMPORTANT: do not render the drawer until it is explicitly open, this is to avoid large html trees especially when nesting drawers
 
+    let closeButtonWidth;
+    if (midBreak) {
+      closeButtonWidth = 'var(--gutter-h)';
+    } else if (closeButtonSize === 'default') {
+      closeButtonWidth = 'var(--nav-width)';
+    } else if (closeButtonSize === 'small') {
+      closeButtonWidth = 'calc(var(--nav-width) / 5)';
+    }
+
+    closeButtonWidth = `calc(${closeButtonWidth} + (25px * ${drawerDepth + 1}))`;
+
     return (
       <Modal
         slug={slug}
@@ -86,7 +102,7 @@ export const Drawer: React.FC<Props> = ({
           zIndex: zBase + drawerDepth,
         }}
       >
-        {drawerDepth === 1 && (
+        {drawerDepth === 0 && (
           <div className={`${baseClass}__blur-bg`} />
         )}
         <button
@@ -95,7 +111,7 @@ export const Drawer: React.FC<Props> = ({
           type="button"
           onClick={() => closeModal(slug)}
           style={{
-            width: `calc(${midBreak ? 'var(--gutter-h)' : 'var(--nav-width)'} + ${drawerDepth - 1} * 25px)`,
+            width: closeButtonWidth,
           }}
           aria-label={t('close')}
         />
@@ -105,9 +121,10 @@ export const Drawer: React.FC<Props> = ({
             right={gutter}
             left={gutter}
           >
-            <EditDepthContext.Provider value={drawerDepth + 1}>
-              {header && header}
-              {header === undefined && (
+            <DrawerDepthContext.Provider value={drawerDepth + 1}>
+              <EditDepthContext.Provider value={editDepth + 1}>
+                {header && header}
+                {header === undefined && (
                 <div className={`${baseClass}__header`}>
                   <h2 className={`${baseClass}__header__title`}>
                     {title}
@@ -122,9 +139,10 @@ export const Drawer: React.FC<Props> = ({
                     <X />
                   </button>
                 </div>
-              )}
-              {children}
-            </EditDepthContext.Provider>
+                )}
+                {children}
+              </EditDepthContext.Provider>
+            </DrawerDepthContext.Provider>
           </Gutter>
         </div>
       </Modal>

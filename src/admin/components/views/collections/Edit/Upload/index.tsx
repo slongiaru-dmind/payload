@@ -106,7 +106,6 @@ const Upload: React.FC<Props> = (props) => {
                   value={value.name}
                   onChange={handleFileNameChange}
                 />
-
                 <Button
                   icon="x"
                   buttonStyle="none"
@@ -118,15 +117,12 @@ const Upload: React.FC<Props> = (props) => {
               </div>
             </div>
           )}
-
           {!value && (
-            <React.Fragment>
-              <Dropzone
-                onChange={handleDropzoneDrop}
-                className={`${baseClass}__dropzone`}
-                mimeTypes={collection?.upload?.mimeTypes}
-              />
-            </React.Fragment>
+            <Dropzone
+              onChange={handleDropzoneDrop}
+              className={`${baseClass}__dropzone`}
+              mimeTypes={collection?.upload?.mimeTypes}
+            />
           )}
         </div>
       )}

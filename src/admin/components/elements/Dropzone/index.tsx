@@ -116,7 +116,7 @@ export const Dropzone: React.FC<Props> = ({ onChange, className, mimeTypes }) =>
         className={`${baseClass}__hidden-input`}
       />
 
-      <p className={`${baseClass}__drag-label`}>
+      <p className={`${baseClass}__label`}>
         {t('or')}
         {' '}
         {t('dragAndDrop')}

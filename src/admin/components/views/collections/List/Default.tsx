@@ -112,7 +112,7 @@ const DefaultList: React.FC<Props> = (props) => {
                     </Pill>
 
                     {isUploadCollection && (
-                    <BulkUploads />
+                      <BulkUploads />
                     )}
                   </div>
                 )}

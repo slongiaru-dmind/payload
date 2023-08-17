@@ -13,9 +13,9 @@ $breakpoint-l-width: 1440px !default;
 // BASELINE GRID
 //////////////////////////////
 
-$baseline-px : 25px !default;
-$baseline-body-size : 13px !default;
-$baseline : math.div($baseline-px, $baseline-body-size)+rem;
+$baseline-px: 25px !default;
+$baseline-body-size: 13px !default;
+$baseline: math.div($baseline-px, $baseline-body-size)+rem;
 
 @function base($multiplier) {
   @return (math.div($baseline-px, $baseline-body-size) * $multiplier)+rem;
@@ -25,33 +25,33 @@ $baseline : math.div($baseline-px, $baseline-body-size)+rem;
 // FONTS (DEPRECATED. DO NOT USE. PREFER CSS VARIABLES)
 //////////////////////////////
 
-$font-body : 'Suisse Intl' !default;
-$font-mono : monospace !default;
+$font-body: 'Suisse Intl' !default;
+$font-mono: monospace !default;
 
 //////////////////////////////
 // COLORS (DEPRECATED. DO NOT USE. PREFER CSS VARIABLES)
 //////////////////////////////
 
-$color-dark-gray : #333333 !default;
-$color-gray : #9A9A9A !default;
-$color-light-gray : #DADADA !default;
-$color-background-gray : #F3F3F3 !default;
-$color-red : #ff6f76 !default;
-$color-yellow : #FDFFA4 !default;
-$color-green : #B2FFD6 !default;
-$color-purple : #F3DDF3 !default;
+$color-dark-gray: #333333 !default;
+$color-gray: #9A9A9A !default;
+$color-light-gray: #DADADA !default;
+$color-background-gray: #F3F3F3 !default;
+$color-red: #ff6f76 !default;
+$color-yellow: #FDFFA4 !default;
+$color-green: #B2FFD6 !default;
+$color-purple: #F3DDF3 !default;
 
 //////////////////////////////
 // STYLES
 //////////////////////////////
 
-$style-radius-s : 3px !default;
-$style-radius-m : 4px !default;
+$style-radius-s: 3px !default;
+$style-radius-m: 4px !default;
 $style-radius-l: 9px !default;
-$style-stroke-width : 1px !default;
+$style-stroke-width: 1px !default;
 
-$style-stroke-width-s : 1px !default;
-$style-stroke-width-m : 2px !default;
+$style-stroke-width-s: 1px !default;
+$style-stroke-width-m: 2px !default;
 
 //////////////////////////////
 // MISC

@@ -1,7 +1,7 @@
+import path from 'path';
 import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
-import path from 'path';
-import { relationSlug, mediaSlug, audioSlug, adminThumbnailSlug } from './config';
+import { relationSlug, mediaSlug, audioSlug, adminThumbnailSlug, uploads1Slug } from './config';
 import type { Media } from './payload-types';
 import payload from '../../src';
 import { AdminUrlUtil } from '../helpers/adminUrlUtil';
@@ -16,6 +16,7 @@ let mediaURL: AdminUrlUtil;
 let audioURL: AdminUrlUtil;
 let relationURL: AdminUrlUtil;
 let adminThumbnailURL: AdminUrlUtil;
+let uploads1URL: AdminUrlUtil;
 
 describe('uploads', () => {
   let page: Page;
@@ -29,6 +30,7 @@ describe('uploads', () => {
     audioURL = new AdminUrlUtil(serverURL, audioSlug);
     relationURL = new AdminUrlUtil(serverURL, relationSlug);
     adminThumbnailURL = new AdminUrlUtil(serverURL, adminThumbnailSlug);
+    uploads1URL = new AdminUrlUtil(serverURL, uploads1Slug);
 
     const context = await browser.newContext();
     page = await context.newPage();
@@ -151,7 +153,7 @@ describe('uploads', () => {
     await expect(page.locator('.Toastify')).toContainText('The following field is invalid: audio');
   });
 
-  test('Should execute adminThumbnail and provide thumbnail when set', async () => {
+  test('should execute adminThumbnail and provide thumbnail when set', async () => {
     await page.goto(adminThumbnailURL.list);
     await wait(200);
 
@@ -162,5 +164,12 @@ describe('uploads', () => {
     // Ensure adminThumbnail fn returns correct value based on audio/mp3 mime
     const audioUploadImage = page.locator('tr.row-2 .thumbnail img');
     expect(await audioUploadImage.getAttribute('src')).toContain(adminThumbnailSrc);
+  });
+
+  test('should allow bulk uploads', async () => {
+    await page.goto(uploads1URL.list);
+    await wait(200);
+
+    // TODO: complete tests for bulk uploads
   });
 });

@@ -4,7 +4,7 @@
   --string-color: #11b102;
   --number-color: #62c3f3;
   display: flex;
-  gap: var(--base);
+  gap: calc(var(--base) * 2);
   align-items: flex-start;
 
   &--fullscreen {

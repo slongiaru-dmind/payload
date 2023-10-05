@@ -96,6 +96,7 @@
     padding-bottom: calc(var(--base) * 0.5);
     background-color: var(--theme-elevation-50);
     overflow: auto;
+    min-height: 100vh;
   }
 
   &__json-children {
